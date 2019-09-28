@@ -23,8 +23,8 @@ public class Device implements Serializable {
 	private String name;
 	private String picture;
 	private String URL;
-	private boolean published;
-	private boolean online;
+	private Boolean published;
+	private Boolean online;
 	
 	private List<Tag> tags;
 	
