@@ -7,14 +7,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-/**
- * 
- * @author Alejandro Rodriguez
- * Dat250 course
- *
- *Session Controller for validate an user 
- */
-
 @Named(value = "sessionController")
 @SessionScoped
 public class SessionController implements Serializable {

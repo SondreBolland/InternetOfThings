@@ -15,19 +15,13 @@ import javax.ws.rs.core.Response;
 import entities.IoTUser;
 import entities.Users;
 
-//To test rest operations use the url http://localhost:8080/Dat250Example0/rest/tweets
+//To test rest operations use the url http://localhost:8080/Dat250Example0/rest/users
 
-/**
- * @Author Alejandro Rodriguez
- * Dat250
- * 
- * REST operations examples
- * 
- */
+
 
 @Path("/users")
 @Stateless
-public class RestService {
+public class UserRestService {
 
 	@PersistenceContext(unitName = "InternetOfThings")
 	private EntityManager em;
@@ -43,7 +37,7 @@ public class RestService {
 
 	@GET
 	@Path("{id}")
-	public Response getTweet(@PathParam("id") String id) {
+	public Response getUser(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
 		IoTUser tweet = em.find(IoTUser.class, idInt);
 		if (tweet == null)

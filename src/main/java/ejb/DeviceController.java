@@ -1,5 +1,6 @@
 package ejb;
 
+import entities.Device;
 import entities.IoTUser;
 
 import javax.ejb.EJB;
@@ -21,30 +22,30 @@ public class DeviceController implements Serializable {
 	
 	// Injected DAO EJB:
 	@EJB
-	private UserDao userDao;
+	private DeviceDao deviceDao;
 
-	private IoTUser user;
+	private Device device;
 
-	public List<IoTUser> getUsers() {
-		List<IoTUser> reverseTweetList = new ArrayList<IoTUser>();
-		reverseTweetList.addAll(this.userDao.getAllUsers());
-		Collections.reverse(reverseTweetList);
-		return reverseTweetList;
+	public List<Device> getDevices() {
+		List<Device> deviceList = new ArrayList<Device>();
+		deviceList.addAll(this.deviceDao.getAllDevices());
+		return deviceList;
 
 	}
 
-	public String saveUser() throws NamingException, JMSException {
-		SessionUtils.getUserName();
-		this.user.setUsername(SessionUtils.getUserName());
-		this.userDao.persist(this.user);
+	public String saveDevice(String name, String url) throws NamingException, JMSException {
+		this.device.setName(name);
+		this.device.setURL(url);
+		//osv
+		this.deviceDao.persist(this.device);
 		return Constants.INDEX;
 	}
 
-	public IoTUser getUser() {
-		if (this.user == null) {
-			user = new IoTUser();
+	public Device getDevice() {
+		if (this.device == null) {
+			device = new Device();
 		}
-		return user;
+		return device;
 
 	}
 
