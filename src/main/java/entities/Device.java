@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @XmlRootElement
@@ -24,6 +25,10 @@ public class Device implements Serializable {
 	private String URL;
 	private boolean published;
 	private boolean online;
+	
+	private List<Tag> tags;
+	
+	private List<Feedback> feedback;
 
 	public static final String FIND_ALL = "Device.findAll";
 
@@ -33,6 +38,10 @@ public class Device implements Serializable {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -74,4 +83,21 @@ public class Device implements Serializable {
 	public void setOnline(boolean online) {
 		this.online = online;
 	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public List<Feedback> getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
+	}
+	
 }

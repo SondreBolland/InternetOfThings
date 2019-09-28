@@ -7,6 +7,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
    	 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
    	 <jta-data-source>java:app/jdbc/InternetOfThings</jta-data-source>
    	 <class>entities.IoTUser</class>
+   	 <class>entities.Tag</class>
+   	 <class>entities.Device</class>
+   	 <class>entities.Feedback</class>
+   	 <class>entities.Register</class>
 	 <properties>
 	 	<property name="javax.persistence.schema-generation.database.action" value="create"/>
 	 	<property name="javax.persistence.sql-load-script-source" value="testData.sql"/>

@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,6 +26,10 @@ public class IoTUser implements Serializable {
 	private String username;
 
 	private String password;
+	
+	private List<Device> ownDevices;
+	
+	private List<Register> subscribedDevices;
 	
 	public static final String FIND_ALL = "IoTUser.findAll";
 
@@ -64,4 +69,20 @@ public class IoTUser implements Serializable {
 		this.password = password;
 	}
 
+	public List<Device> getOwnDevices() {
+		return ownDevices;
+	}
+
+	public void setOwnDevices(List<Device> ownDevices) {
+		this.ownDevices = ownDevices;
+	}
+
+	public List<Register> getSubscribedDevices() {
+		return subscribedDevices;
+	}
+
+	public void setSubscribedDevices(List<Register> subscribedDevices) {
+		this.subscribedDevices = subscribedDevices;
+	}
+	
 }
