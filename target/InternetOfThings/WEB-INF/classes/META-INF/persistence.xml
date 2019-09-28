@@ -9,6 +9,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
    	 <class>entities.IoTUser</class>
 	 <properties>
 	 	<property name="javax.persistence.schema-generation.database.action" value="create"/>
+	 	<property name="javax.persistence.sql-load-script-source" value="testData.sql"/>
 	 </properties>
 	</persistence-unit>
 </persistence>
