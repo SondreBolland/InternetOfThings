@@ -2,13 +2,14 @@ C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\Se
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\DeviceDao.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\UserController.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\UserDao.java
-C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\rest\RestService.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Device.java
+C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\rest\DeviceRestService.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\Constants.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\DeviceController.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\SessionUtils.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Feedback.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\jms\DweetListener.java
+C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\rest\UserRestService.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Register.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Tag.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Users.java
