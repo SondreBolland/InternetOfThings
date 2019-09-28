@@ -14,13 +14,6 @@ import javax.resource.spi.SecurityException;
 
 import entities.IoTUser;
 
-/**
- * 
- * @author Alejandro Rodriguez
- * Dat250 course
- *
- *   Tweet Controller class for the management of tweets
- */
 
 @Named(value = "userController")
 @RequestScoped
@@ -34,12 +27,13 @@ public class UserController implements Serializable {
 
 	private IoTUser user;
 
-	public List<IoTUser> getUsers() {
-		List<IoTUser> reverseTweetList = new ArrayList<IoTUser>();
-		reverseTweetList.addAll(this.userDao.getAllUsers());
-		Collections.reverse(reverseTweetList);
-		return reverseTweetList;
+	public UserController(){
+		this.userDao = new UserDao();
+	}
 
+	public List<IoTUser> getUsers() {
+		List<IoTUser> users = this.userDao.getAllUsers();
+		return users;
 	}
 
 	public String saveUser() throws NamingException, JMSException {

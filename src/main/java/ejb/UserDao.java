@@ -13,6 +13,7 @@ import javax.jms.JMSSessionMode;
 import javax.jms.Topic;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -28,34 +29,24 @@ import entities.IoTUser;
 
 @Stateless
 public class UserDao {
-	
     // Injected database connection:
 	@PersistenceContext(unitName="InternetOfThings")
     private EntityManager em;
-	
-	
-//	@Inject
-//	@JMSConnectionFactory("jms/dat250/ConnectionFactory")
-//	@JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
-//	private JMSContext context;
-	
-//	@Resource(lookup = "jms/dat250/Topic")
-//	private Topic topic;
+
+	public UserDao(){
+	    em = Persistence.createEntityManagerFactory("InternetOfThings").createEntityManager();
+    }
 	
     // Stores a new user:
     public void persist(IoTUser user) throws NamingException, JMSException {
         em.persist(user);
-        //Send the topic to the JMS Topic
-		//context.createProducer().setProperty("usernameUser", user.getUsername()).send(topic, user);
-
     }
 
     // Retrieves all the users:
 	@SuppressWarnings("unchecked")
 	public List<IoTUser> getAllUsers() {
-        Query query = em.createQuery("SELECT u FROM User u");
-        List<IoTUser> users = new ArrayList<IoTUser>();
-        users = query.getResultList();
+        Query query = em.createQuery("SELECT u FROM IoTUser u");
+        List<IoTUser> users =  query.getResultList();
         return users;
     }
 }
