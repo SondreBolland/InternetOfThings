@@ -29,18 +29,18 @@ public class UserRestService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public Response getUsers() {
+	public List<IoTUser> getUsers() {
 		List<IoTUser> users = controller.getUsers();
-		return Response.ok(users).build();
+		return users;
 	}
 
 	@GET
 	@Path("{id}")
-	public Response getUser(@PathParam("id") String id) {
+	public IoTUser getUser(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
 		IoTUser user = controller.getUser();
 		if (user == null)
 			throw new NotFoundException();
-		return Response.ok(user).build();
+		return user;
 	}
 }
