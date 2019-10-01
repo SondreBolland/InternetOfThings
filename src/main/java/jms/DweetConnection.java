@@ -13,13 +13,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-/**
- * @Author Alejandro Rodriguez
- * Dat250
- * 
- * Dweet Connection provider
- * 
- */
 
 public class DweetConnection {
 
@@ -28,7 +21,7 @@ public class DweetConnection {
 	private JsonParser jsonParser = new JsonParser();
 
 	//Customize for own link 
-	private String thingName = "dat250Sondre";
+	private String thingName = "group1";
 
 	
 	public DweetConnection() {
