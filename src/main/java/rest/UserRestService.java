@@ -28,7 +28,7 @@ public class UserRestService {
 	private EntityManager em;
 
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<IoTUser> getUsers() {
 		List<IoTUser> users = controller.getUsers();
 		return users;
@@ -36,6 +36,7 @@ public class UserRestService {
 
 	@GET
 	@Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public IoTUser getUser(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
 		IoTUser user = controller.getUser();

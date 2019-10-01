@@ -25,13 +25,9 @@ public class Register implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGenerator")
 	private int id;
-	
 	private String time;
-	
 	private boolean approved;
-	
 	private IoTUser user;
-	
 	private Device device;
 
 	public Register() {

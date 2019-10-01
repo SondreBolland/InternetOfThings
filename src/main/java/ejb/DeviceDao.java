@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
@@ -20,15 +21,10 @@ public class DeviceDao {
 	@PersistenceContext(unitName="InternetOfThings")
     private EntityManager em;
 	
-	
-//	@Inject
-//	@JMSConnectionFactory("jms/dat250/ConnectionFactory")
-//	@JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
-//	private JMSContext context;
-	
-//	@Resource(lookup = "jms/dat250/Topic")
-//	private Topic topic;
-	
+	public DeviceDao(){
+        em = Persistence.createEntityManagerFactory("InternetOfThings").createEntityManager();
+    }
+
     // Stores a new device:
     public void persist(Device device) throws NamingException, JMSException {
         em.persist(device);
@@ -38,8 +34,15 @@ public class DeviceDao {
 	@SuppressWarnings("unchecked")
 	public List<Device> getAllDevices() {
         Query query = em.createQuery("SELECT d FROM Device d");
-        List<Device> devices = new ArrayList<Device>();
-        devices = query.getResultList();
+        List<Device> devices = query.getResultList();
         return devices;
+    }
+
+    public Device getDevice(int id) {
+        Query query = em.createQuery("SELECT d FROM Device d where d.id = "+id);
+        List<Device> devices = query.getResultList();
+        if(devices.size()>0)
+            return devices.get(0);
+        return null;
     }
 }
