@@ -8,19 +8,36 @@
 	<title>login</title>
 </h:head>
 <h:body>
-	<h:form>
-		<h3>JSF Login Logout</h3>
-		<h:outputText value="Username" />
-		<h:inputText id="username" value="#{sessionController.username}"></h:inputText>
-	
-		<br /><br />
+	<h:table>
+		<h:form>
+			<h:tr>
+				<h3>Internet Of Things</h3>
+			</h:tr>
+			
+			<h:tr>
+				<h:outputText value="Username" />
+			</h:tr>
+			<h:tr>
+				<h:inputText id="username" value="#{sessionController.username}"></h:inputText>
+			</h:tr>
 		
-		<h:outputText value="Password" />
-		<h:inputSecret id="password" value="#{sessionController.password}"></h:inputSecret>
-		<br /><br />
-		
-		<h:commandButton action="#{sessionController.validateUsernamePassword()}"
-			value="Login"></h:commandButton>
-	</h:form>
+			<h:tr>
+				<h:outputText value="Password" />
+			</h:tr>
+			<h:tr>
+				<h:inputSecret id="password" value="#{sessionController.password}"></h:inputSecret>
+			</h:tr>
+			
+			<h:tr>
+				<h:td>
+					<h:commandButton action="#{sessionController.validateUsernamePassword()}"
+						value="Login"></h:commandButton>
+				</h:td>
+				<h:td>
+					<h:commandButton value="Sign Up"></h:commandButton>
+				</h:td>
+			</h:tr>
+		</h:form>
+	</h:table>
 </h:body>
 </html>
