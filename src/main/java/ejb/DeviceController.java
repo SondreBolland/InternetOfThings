@@ -30,6 +30,8 @@ public class DeviceController implements Serializable {
 	private RegisterDao registerDao;
 	private UserDao userDao;
 
+	private Device device = new Device();
+
 	public DeviceController(){
 		deviceDao = new DeviceDao();
 		registerDao = new RegisterDao();
@@ -73,7 +75,6 @@ public class DeviceController implements Serializable {
 	}
 
 	public String saveDevice(String name, String url) throws NamingException, JMSException {
-		Device device = new Device();
 		device.setName(name);
 		device.setURL(url);
 		//osv
