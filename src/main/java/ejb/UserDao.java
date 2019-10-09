@@ -51,4 +51,17 @@ public class UserDao {
         em.close();
         return users;
     }
+
+    // Retrieves the user with the given username:
+	@SuppressWarnings("unchecked")
+	public IoTUser getUser(String username) {
+	    em = emf.createEntityManager();
+        Query query = em.createQuery("SELECT u FROM IoTUser u WHERE u.username = " + username);
+        List<IoTUser> users =  query.getResultList();
+        IoTUser user = null;
+        if(users.size()>0)
+            user = users.get(0);
+        em.close();
+        return user;
+    }
 }

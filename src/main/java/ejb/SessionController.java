@@ -1,5 +1,7 @@
 package ejb;
 
+import entities.IoTUser;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -10,34 +12,34 @@ import javax.servlet.http.HttpSession;
 @Named(value = "sessionController")
 @SessionScoped
 public class SessionController implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
+	UserController userController = new UserController();
+
 	private String password;
-
 	private String username;
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
 
 	public String validateUsernamePassword() {
 		HttpSession session = SessionUtils.getSession();
 		session.setAttribute(Constants.USERNAME, this.username);
-		return Constants.INDEX;
+		IoTUser user = userController.getUser(this.username);
+		if(user == null)
+			return "User not found";
+		if(user.getPassword() != this.password)//clear text password are the best, we can sell them if we go bankrupt
+			return "Incorrect password";
+		return "(not so very)random string with random number for now, just to make it simple " + Math.random();
 	}
 
 	public String logout() {
@@ -53,5 +55,4 @@ public class SessionController implements Serializable {
 		}
 		return Constants.INDEX;
 	}
-
 }
