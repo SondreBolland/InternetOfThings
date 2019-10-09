@@ -16,6 +16,8 @@ public class SessionController implements Serializable {
 	private String password;
 
 	private String username;
+	
+	private String email;
 
 	public String getPassword() {
 		return password;
@@ -32,12 +34,19 @@ public class SessionController implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String validateUsernamePassword() {
 		HttpSession session = SessionUtils.getSession();
 		session.setAttribute(Constants.USERNAME, this.username);
-		return Constants.INDEX;
+		return Constants.MY_DEVICES;
 	}
 
 	public String logout() {
@@ -47,7 +56,9 @@ public class SessionController implements Serializable {
 	}
 	
 	public String signUp() {
-		return "kake";
+		HttpSession session = SessionUtils.getSession();
+		session.setAttribute(Constants.USERNAME, this.username);
+		return "myDevices";
 	}
 	
 	public String redirect() throws IOException {
