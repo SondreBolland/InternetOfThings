@@ -48,6 +48,10 @@ public class SessionController implements Serializable {
 		return Constants.LOGIN;
 	}
 	
+	public String signUp() {
+		return "kake";
+	}
+	
 	public String redirect() throws IOException {
 		HttpSession session = SessionUtils.getSession();
 		if (session.getAttribute(Constants.USERNAME)==null) {
