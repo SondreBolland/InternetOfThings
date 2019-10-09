@@ -11,23 +11,51 @@ import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 import javax.resource.spi.SecurityException;
+import javax.servlet.http.HttpSession;
 
 import entities.IoTUser;
-
 
 @Named(value = "userController")
 @RequestScoped
 public class UserController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	// Injected DAO EJB:
 	@EJB
 	private UserDao userDao;
 	private IoTUser user;
+	
+	private String password;
+	private String username;
+	private String email;
 
-	public UserController(){
+	public UserController() {
 		this.userDao = new UserDao();
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<IoTUser> getUsers() {
@@ -35,45 +63,57 @@ public class UserController implements Serializable {
 		return users;
 	}
 
-	public String createUser(){
-		if(user.getUsername() == null || !user.getUsername().equals(""))
-			return "Enter username";
-		if(user.getUsername().length()<6)
-			return "Username must be at least 6 characters";
-		if(!isStringOnlyAlphabet(user.getUsername()))
-			return "Username can only contain letters and numbers";
-		if(getUser(user.getUsername()) != null)
-			return "Username is already taken";
-		if(!(user.getEmail().contains("@")||user.getEmail().contains("@")))
-			return "Please enter a valid email address";
-		if(user.getPassword().length()<8)
-			return "Password must be at least 8 characters";
-		IoTUser user = new IoTUser();
-		user.setUsername(user.getUsername());
-		user.setPassword(user.getPassword());
-		user.setEmail(user.getEmail());
+	public String createUser() {
+		HttpSession session = SessionUtils.getSession();
+		session.setAttribute(Constants.USERNAME, this.username);
+		this.user = new IoTUser();
+		this.user.setUsername(username);
+		this.user.setEmail(email);
+		System.out.println(username + " " + email + " " + password);
+		this.user.setPassword(password);
+		if (user.getUsername() == null) {
+			System.out.println("im here");
+			return Constants.SIGNUP_ERROR;
+		}
+		if (user.getUsername().length() < 6) {
+			System.out.println("username length");
+			return Constants.SIGNUP_ERROR;
+		}
+		if (!isStringOnlyAlphabet(user.getUsername())) {
+			System.out.println("Alphabet");
+			return Constants.SIGNUP_ERROR;
+		}
+		if (!(user.getEmail().contains("@"))) {
+			System.out.println("Contains @");
+			return Constants.SIGNUP_ERROR;
+		}
+		if (user.getPassword().length() < 8) {
+			System.out.println("Password length");
+			return Constants.SIGNUP_ERROR;
+		}
+		System.out.println("Passed tests");
 		try {
 			saveUser();
 		} catch (NamingException e) {
-			return "I like your input, but the database doesn't.. Try again! " + e.getMessage();
+			return Constants.SIGNUP_ERROR;
 		} catch (JMSException e) {
-			return "I like your input, but the database doesn't.. Try again! "+ e.getMessage();
+			return Constants.SIGNUP_ERROR;
+		} catch (Exception e) {
+			return Constants.SIGNUP_ERROR;
 		}
-		return "Well done, you entered valid information, as a reward your account have been created";
+		
+		return Constants.MY_DEVICES;
 	}
 
-	private static boolean isStringOnlyAlphabet(String str)
-	{
-		return ((!str.equals(""))
-				&& (str != null)
-				&& ((str.matches("^[a-zA-Z]*$") || str.matches("[^0-9]"))));
+	private static boolean isStringOnlyAlphabet(String str) {
+		return ((!str.equals("")) && (str != null) && ((str.matches("^[a-zA-Z]*$") || str.matches("[^0-9]"))));
 	}
 
-	public String saveUser() throws NamingException, JMSException {
+	public void saveUser() throws NamingException, JMSException, Exception {
 		SessionUtils.getUserName();
 		this.user.setUsername(SessionUtils.getUserName());
 		this.userDao.persist(this.user);
-		return Constants.INDEX;
+		System.out.println("Saved user");
 	}
 
 	public IoTUser getUser() {

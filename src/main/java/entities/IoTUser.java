@@ -27,8 +27,10 @@ public class IoTUser implements Serializable {
 
 	private String password;
 	
+	@OneToMany
 	private List<Device> ownDevices;
 	
+	@OneToMany
 	private List<Register> subscribedDevices;
 	
 	public static final String FIND_ALL = "IoTUser.findAll";

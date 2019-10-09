@@ -56,7 +56,7 @@ public class UserDao {
 	@SuppressWarnings("unchecked")
 	public IoTUser getUser(String username) {
 	    em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT u FROM IoTUser u WHERE u.username = " + username);
+        Query query = em.createQuery("SELECT u FROM IoTUser u WHERE u.username = '" + username + "'");
         List<IoTUser> users =  query.getResultList();
         IoTUser user = null;
         if(users.size()>0)

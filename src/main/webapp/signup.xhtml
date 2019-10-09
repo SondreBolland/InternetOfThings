@@ -16,15 +16,15 @@
 			</f:facet>
 			
 			<h:outputText value="E-mail" />
-			<h:inputText id="email" value="#{sessionController.email}"></h:inputText>
+			<h:inputText id="email" value="#{userController.email}"></h:inputText>
 			<h:outputText value="Username" />
-			<h:inputText id="username" value="#{sessionController.username}"></h:inputText>
+			<h:inputText id="username" value="#{userController.username}"></h:inputText>
 			<h:outputText value="Password" />
-			<h:inputSecret id="password" value="#{sessionController.password}"></h:inputSecret>
+			<h:inputSecret id="password" value="#{userController.password}"></h:inputSecret>
 
 			<f:facet name="footer">
 				<h:panelGroup style="display:block; text-align:center">
-					<h:commandButton action="#{sessionController.signUp()}"
+					<h:commandButton action="#{userController.createUser()}"
 					 value="Sign Up"></h:commandButton>
 					 <br> </br>
 					<h:commandButton action="login.xhtml"

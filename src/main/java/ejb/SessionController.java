@@ -48,23 +48,19 @@ public class SessionController implements Serializable {
 		HttpSession session = SessionUtils.getSession();
 		session.setAttribute(Constants.USERNAME, this.username);
 		IoTUser user = userController.getUser(this.username);
-		if(user == null)
-			return "User not found";
-		if(user.getPassword() != this.password)//clear text password are the best, we can sell them if we go bankrupt
-			return "Incorrect password";
-		return "(not so very)random string with random number for now, just to make it simple " + Math.random();
+		if(user == null) {
+			return Constants.LOGIN_ERROR;
+		}
+		if(!user.getPassword().equals(this.password)) {//clear text password are the best, we can sell them if we go bankrupt
+			return Constants.LOGIN_ERROR;
+		}
+		return Constants.MY_DEVICES;
 	}
 
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
 		return Constants.LOGIN;
-	}
-	
-	public String signUp() {
-		HttpSession session = SessionUtils.getSession();
-		session.setAttribute(Constants.USERNAME, this.username);
-		return "myDevices";
 	}
 	
 	public String redirect() throws IOException {
