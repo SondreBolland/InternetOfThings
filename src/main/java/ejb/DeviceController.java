@@ -68,7 +68,6 @@ public class DeviceController implements Serializable {
 		Date date = new Date(System.currentTimeMillis());
 		registration.setTime(formatter.format(date));
 
-		//userDao.persist(user);
 		registerDao.persist(registration);
 		return registration;
 	}

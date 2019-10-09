@@ -12,14 +12,6 @@ import javax.persistence.Query;
 import entities.IoTUser;
 
 
-/**
- * @Author Alejandro Rodriguez
- * Dat250
- * 
- * Test class for displaying the users in the database
- * 
- */
-
 public class UserTest {
 
     private static final String PERSISTENCE_UNIT_NAME = "InternetOfThings";

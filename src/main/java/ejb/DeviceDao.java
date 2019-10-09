@@ -6,43 +6,49 @@ import entities.IoTUser;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Stateless
-public class DeviceDao {
+public class DeviceDao implements java.io.Serializable{
 	
     // Injected database connection:
 	@PersistenceContext(unitName="InternetOfThings")
     private EntityManager em;
+	private EntityManagerFactory emf;
 	
 	public DeviceDao(){
-        em = Persistence.createEntityManagerFactory("InternetOfThings").createEntityManager();
+        emf = Persistence.createEntityManagerFactory("InternetOfThings");
     }
 
     // Stores a new device:
     public void persist(Device device) throws NamingException, JMSException {
+	    em = emf.createEntityManager();
         em.persist(device);
+        em.close();
     }
 
     // Retrieves all the devices:
 	@SuppressWarnings("unchecked")
 	public List<Device> getAllDevices() {
+	    em = emf.createEntityManager();
         Query query = em.createQuery("SELECT d FROM Device d");
         List<Device> devices = query.getResultList();
+        em.close();
         return devices;
     }
 
     public Device getDevice(int id) {
+	    em = emf.createEntityManager();
         Query query = em.createQuery("SELECT d FROM Device d where d.id = "+id);
         List<Device> devices = query.getResultList();
-        if(devices.size()>0)
+        if(devices.size()>0){
+            em.close();
             return devices.get(0);
+        }
+        em.close();
         return null;
     }
 }
