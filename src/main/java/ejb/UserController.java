@@ -69,29 +69,22 @@ public class UserController implements Serializable {
 		this.user = new IoTUser();
 		this.user.setUsername(username);
 		this.user.setEmail(email);
-		System.out.println(username + " " + email + " " + password);
 		this.user.setPassword(password);
 		if (user.getUsername() == null) {
-			System.out.println("im here");
 			return Constants.SIGNUP_ERROR;
 		}
 		if (user.getUsername().length() < 6) {
-			System.out.println("username length");
 			return Constants.SIGNUP_ERROR;
 		}
 		if (!isStringOnlyAlphabet(user.getUsername())) {
-			System.out.println("Alphabet");
 			return Constants.SIGNUP_ERROR;
 		}
 		if (!(user.getEmail().contains("@"))) {
-			System.out.println("Contains @");
 			return Constants.SIGNUP_ERROR;
 		}
 		if (user.getPassword().length() < 8) {
-			System.out.println("Password length");
 			return Constants.SIGNUP_ERROR;
 		}
-		System.out.println("Passed tests");
 		try {
 			saveUser();
 		} catch (NamingException e) {
@@ -113,7 +106,6 @@ public class UserController implements Serializable {
 		SessionUtils.getUserName();
 		this.user.setUsername(SessionUtils.getUserName());
 		this.userDao.persist(this.user);
-		System.out.println("Saved user");
 	}
 
 	public IoTUser getUser() {
