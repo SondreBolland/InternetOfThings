@@ -3,8 +3,14 @@ package ejb;
 import entities.Device;
 import entities.IoTUser;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
+import javax.jms.JMSSessionMode;
+import javax.jms.Topic;
 import javax.naming.NamingException;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +25,17 @@ public class DeviceDao implements java.io.Serializable{
     private EntityManager em;
 	private EntityManagerFactory emf;
 	
+	
+	//Messaging connection factory
+	@Inject
+	@JMSConnectionFactory("jms/InternetOfThings/ConnectionFactory")
+	@JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
+	private JMSContext context;
+	
+	@Resource(lookup = "jms/InternetOfThings/Topic")
+	private Topic topic;
+	
+	
 	public DeviceDao(){
         emf = Persistence.createEntityManagerFactory("InternetOfThings");
     }
@@ -28,6 +45,9 @@ public class DeviceDao implements java.io.Serializable{
 	    em = emf.createEntityManager();
         em.persist(device);
         em.close();
+      //Send the topic to the JMS Topic
+      //context.createProducer().setProperty("topicUser", tweet.getTopic()).send(topic, tweet);
+        context.createProducer().setProperty("topicDevice", device.getTopic()).send(topic, device);
     }
 
     // Retrieves all the devices:

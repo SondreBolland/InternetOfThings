@@ -25,6 +25,7 @@ public class Device implements Serializable {
 	private String URL;
 	private Boolean published;
 	private Boolean online;
+	private String topic;
 	
 	private List<Tag> tags;
 	
@@ -99,5 +100,12 @@ public class Device implements Serializable {
 	public void setFeedback(List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
-	
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
 }

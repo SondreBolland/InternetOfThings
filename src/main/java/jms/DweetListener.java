@@ -21,7 +21,7 @@ import entities.IoTUser;
  * 
  */
 
-@MessageDriven(mappedName = "jms/dat250/Topic", activationConfig = {
+@MessageDriven(mappedName = "jms/InternetOfThings/Topic", activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "topicUser = 'dweet'") })
 public class DweetListener implements MessageListener {
