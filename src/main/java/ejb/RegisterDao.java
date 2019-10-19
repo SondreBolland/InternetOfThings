@@ -3,8 +3,14 @@ package ejb;
 import entities.Device;
 import entities.Register;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
+import javax.jms.JMSSessionMode;
+import javax.jms.Topic;
 import javax.naming.NamingException;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +19,17 @@ import java.util.List;
 
 @Stateless
 public class RegisterDao {
+	
+	//Messaging connection factory
+		@Inject
+		@JMSConnectionFactory("jms/InternetOfThings/ConnectionFactory")
+		@JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
+		private JMSContext context;
+		
+		@Resource(lookup = "jms/InternetOfThings/Topic")
+		private Topic topic;
+			
+	
 	
     // Injected database connection: does not inject??
 	@PersistenceContext(unitName="InternetOfThings")
@@ -28,6 +45,9 @@ public class RegisterDao {
 	    em = emf.createEntityManager();
         em.persist(register);
         em.close();
+        
+        
+        context.createProducer().setProperty("topicDevice", register.getTopic()).send(topic, register);
     }
 
     // Updates a new registration:

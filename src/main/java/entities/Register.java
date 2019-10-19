@@ -29,7 +29,7 @@ public class Register implements Serializable {
 	private boolean approved;
 	private IoTUser user;
 	private Device device;
-
+	private String topic;
 	public Register() {
 	}
 
@@ -73,6 +73,13 @@ public class Register implements Serializable {
 		this.device = device;
 	}
 	
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
 	
 
 }
