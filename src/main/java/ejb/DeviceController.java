@@ -107,6 +107,19 @@ public class DeviceController implements Serializable {
 		}
 		return searchDevice();
 	}
+	
+	public List<Device> getPublishedDevices() {
+		List<Device> deviceList = new ArrayList<Device>();
+		if (searchKey == null) {
+			deviceList.addAll(this.deviceDao.getPublishedDevices());
+			return deviceList;
+		}
+		if (searchKey.equals("")) {
+			deviceList.addAll(this.deviceDao.getPublishedDevices());
+			return deviceList;
+		}
+		return searchDevice();
+	}
 
 	public List<Device> searchDevice() {
 		List<Device> deviceList = new ArrayList<Device>();
@@ -143,6 +156,20 @@ public class DeviceController implements Serializable {
 		try {
 			deviceDao.persist(device);
 			userDao.merge(user);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		return Constants.MY_DEVICES;
+	}
+	
+	public String invertPublish() {
+		int id = device.getId();
+		Device device = deviceDao.getDevice(id);
+		device.setPublished(!device.isPublished());
+		try {
+			deviceDao.merge(device);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		} catch (JMSException e) {

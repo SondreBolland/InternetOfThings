@@ -37,6 +37,7 @@
 						<b><h:outputLabel value="| Online: " /></b>
 						<h:outputText value="#{dev.online} " />
 						<h:commandButton value="Select" action="myDevices.xhtml"></h:commandButton>
+						<h:commandButton value="Publish/Unpublish" action="#{deviceController.invertPublish()}"></h:commandButton>
 
 					</div>
 				</ui:repeat>

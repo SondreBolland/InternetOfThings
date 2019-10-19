@@ -29,6 +29,12 @@ public class DeviceDao implements java.io.Serializable {
 		em.close();
 	}
 
+	public void merge(Device device) throws NamingException, JMSException {
+		em = emf.createEntityManager();
+		em.merge(device);
+		em.close();
+	}
+
 	// Retrieves all the devices:
 	@SuppressWarnings("unchecked")
 	public List<Device> getAllDevices() {
@@ -41,9 +47,19 @@ public class DeviceDao implements java.io.Serializable {
 
 	// Retrieves all the devices:
 	@SuppressWarnings("unchecked")
+	public List<Device> getPublishedDevices() {
+		em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT d FROM Device d where d.published = 'true'");
+		List<Device> devices = query.getResultList();
+		em.close();
+		return devices;
+	}
+
+	// Retrieves all the devices:
+	@SuppressWarnings("unchecked")
 	public List<Device> searchDevice(String searchKey) {
 		em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT d FROM Device d where d.name LIKE '" + searchKey + "%'");
+		Query query = em.createQuery("SELECT d FROM Device d where d.name LIKE '" + searchKey + "%' and d.published = 'true'");
 		List<Device> devices = query.getResultList();
 		em.close();
 		return devices;

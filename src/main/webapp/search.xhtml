@@ -33,7 +33,7 @@
 				<f:facet name="header">
 					<h:outputText value="Available Devices" />
 				</f:facet>
-				<ui:repeat value="#{deviceController.getDevices()}" var="dev">
+				<ui:repeat value="#{deviceController.getPublishedDevices()}" var="dev">
 					<div class="div-container-device">
 						<b><h:outputLabel value="ID: " /></b>
 						<h:outputText value="#{dev.id}" />
