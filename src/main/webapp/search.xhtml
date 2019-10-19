@@ -18,12 +18,20 @@
 
 	<div class="div-container-devices">
 		<h:form>
+			<table align="center" style='border: 1px solid black;'>
+				<tr>
+					<td>Search for name:</td>
+					<td><h:inputText value="#{deviceController.searchKey}" /></td>
+					<td><h:commandButton value="Search" action="search.xhtml"></h:commandButton></td>
+				</tr>
+
+			</table>
 			<h:panelGrid id="panel" columns="2" border="1" cellpadding="10"
 				cellspacing="1"
 				style="border:1px solid black;margin-left:auto;margin-right:auto;">
 
 				<f:facet name="header">
-					<h:outputText value="All Devices" />
+					<h:outputText value="Available Devices" />
 				</f:facet>
 				<ui:repeat value="#{deviceController.getDevices()}" var="dev">
 					<div class="div-container-device">
@@ -32,17 +40,17 @@
 						<b><h:outputLabel value="| Name: " /></b>
 						<h:outputText value="#{dev.name}" />
 						<b><h:outputLabel value="| Online: " /></b>
-						<h:outputText value="#{dev.online}" />
-						<h:panelGroup style="display:block; text-align:center">
-							<h:commandButton value="Subscribe" action="myDevices.xhtml"></h:commandButton>
-						</h:panelGroup>
+						<h:outputText value="#{dev.online} " />
+						<h:commandButton value="Subscribe" action="myDevices.xhtml"></h:commandButton>
 
 					</div>
 				</ui:repeat>
-				<h:panelGroup style="display:block; text-align:center">
-					<h:commandButton value="Dunno Device" action="myDevices.xhtml"></h:commandButton>
-				</h:panelGroup>
 			</h:panelGrid>
+
+			<div class="topright">
+				<h:commandButton value="Log out"
+					action="#{sessionController.logout()}"></h:commandButton>
+			</div>
 		</h:form>
 	</div>
 </h:body>

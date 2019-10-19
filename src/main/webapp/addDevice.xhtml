@@ -6,7 +6,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
-	<title>My Devices</title>
+	<title>Add Device</title>
 </h:head>
 <h:body>
 	<ul>
@@ -21,29 +21,34 @@
 				cellspacing="1"
 				style="border:1px solid black;margin-left:auto;margin-right:auto;">
 
-				<f:facet name="header">
-					<h:outputText value="My Devices" />
-				</f:facet>
-				<ui:repeat
-					value="#{userController.getUser(sessionController.getUsername()).getOwnDevices()}"
-					var="dev">
-					<div class="div-container-device">
-						<b><h:outputLabel value="ID: " /></b>
-						<h:outputText value="#{dev.id}" />
-						<b><h:outputLabel value="| Name: " /></b>
-						<h:outputText value="#{dev.name}" />
-						<b><h:outputLabel value="| Published: " /></b>
-						<h:outputText value="#{dev.published}" />
-						<b><h:outputLabel value="| Online: " /></b>
-						<h:outputText value="#{dev.online} " />
-						<h:commandButton value="Select" action="myDevices.xhtml"></h:commandButton>
+				<h2>Enter Device information</h2>
+				<table>
+					<tr>
+						<td>Name :</td>
+						<td><h:inputText size="25" value="#{deviceController.name}" /></td>
+					</tr>
+					<tr>
+						<td>Picture URL :</td>
+						<td><h:inputText size="25" value="#{deviceController.picture}" /></td>
+					</tr>
+					<tr>
+						<td>URL :</td>
+						<td><h:inputText size="25" value="#{deviceController.URL}" /></td>
+					</tr>
+					<tr>
+						<td>Automatically Publish?</td>
+						<td><h:selectOneRadio value="#{deviceController.published}" >
+							<f:selectItem  itemValue="true" itemLabel="Yes" />
+							<f:selectItem  itemValue="false" itemLabel="No" />
+							</h:selectOneRadio>
+						</td>
+					</tr>
+				</table>
 
-					</div>
-				</ui:repeat>
 				<h:panelGroup style="display:block; text-align:center">
-					<h:commandButton value="Add Device" action="addDevice.xhtml"></h:commandButton>
+					<h:commandButton value="Add" action="#{deviceController.addDevice(sessionController.username)}"></h:commandButton>
 					<br> </br>
-					<h:commandButton value="Delete Device" action="myDevices.xhtml"></h:commandButton>
+					<h:commandButton value="Back" action="myDevices.xhtml"></h:commandButton>
 				</h:panelGroup>
 			</h:panelGrid>
 
@@ -52,6 +57,8 @@
 					action="#{sessionController.logout()}"></h:commandButton>
 			</div>
 		</h:form>
+
+
 
 	</div>
 

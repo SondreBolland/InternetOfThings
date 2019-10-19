@@ -26,8 +26,10 @@ public class Device implements Serializable {
 	private Boolean published;
 	private Boolean online;
 	
+	@OneToMany
 	private List<Tag> tags;
 	
+	@OneToMany
 	private List<Feedback> feedback;
 
 	public static final String FIND_ALL = "Device.findAll";
