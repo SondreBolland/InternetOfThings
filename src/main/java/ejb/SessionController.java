@@ -16,6 +16,14 @@ public class SessionController implements Serializable {
 
 	UserController userController = new UserController();
 
+	public UserController getUserController() {
+		return userController;
+	}
+
+	public void setUserController(UserController userController) {
+		this.userController = userController;
+	}
+
 	private String password;
 	private String username;
 	private String email;

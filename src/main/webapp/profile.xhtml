@@ -35,7 +35,7 @@
 					<tr>
 						<td>Username:</td>
 						<td><h:outputText
-								value="#{userController.getUser(sessionController.getUsername()).getEmail()}" /></td>
+								value="#{sessionController.userController.getUser(sessionController.getUsername()).getEmail()}" /></td>
 					</tr>
 					<tr>
 						<td>Username:</td>
@@ -48,12 +48,12 @@
 					<tr>
 						<td>My devices:</td>
 						<td><h:outputText
-								value="#{userController.getUser(sessionController.getUsername()).getOwnDevices().size()}" /></td>
+								value="#{sessionController.userController.getUser(sessionController.getUsername()).getOwnDevices().size()}" /></td>
 					</tr>
 					<tr>
 						<td>Subscribed devices:</td>
 						<td><h:outputText
-								value="#{userController.getUser(sessionController.getUsername()).getSubscribedDevices().size()}" /></td>
+								value="#{sessionController.userController.getUser(sessionController.getUsername()).getSubscribedDevices().size()}" /></td>
 					</tr>
 				</table>
 
