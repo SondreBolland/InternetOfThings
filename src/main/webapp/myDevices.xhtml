@@ -5,7 +5,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">	</link>	
+	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 	<title>My Devices</title>
 </h:head>
 <h:body>
@@ -15,6 +15,58 @@
 		<li><a href="search.xhtml">Search</a></li>
 		<li><a href="profile.xhtml">Profile</a></li>
 	</ul>
-	
+	<div class="div-container-devices">
+		<h:form>
+			<h:panelGrid id="panel" columns="2" border="1" cellpadding="10"
+				cellspacing="1"
+				style="border:1px solid black;margin-left:auto;margin-right:auto;">
+
+				<f:facet name="header">
+					<h:outputText value="My Devices" />
+				</f:facet>
+				<ui:repeat
+					value="#{userController.getUser(sessionController.getUsername()).getOwnDevices()}"
+					var="dev">
+					<div class="div-container-device">
+						<b><h:outputLabel value="ID: " /></b>
+						<h:outputText value="#{dev.id}" />
+						<b><h:outputLabel value="| Name: " /></b>
+						<h:outputText value="#{dev.name}" />
+						<b><h:outputLabel value="| Published: " /></b>
+						<h:outputText value="#{dev.published}" />
+						<b><h:outputLabel value="| Online: " /></b>
+						<h:outputText value="#{dev.online} " />
+						<h:commandButton value="Select" action="myDevices.xhtml"></h:commandButton>
+						<h:commandButton value="Publish/Unpublish" action="#{deviceController.invertPublish()}"></h:commandButton>
+
+					</div>
+				</ui:repeat>
+				<h:panelGroup style="display:block; text-align:center">
+					<h:commandButton value="Add Device" action="addDevice.xhtml"></h:commandButton>
+					<br> </br>
+					<h:commandButton value="Delete Device" action="myDevices.xhtml"></h:commandButton>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<div class="topright">
+				<h:commandButton value="Log out"
+					action="#{sessionController.logout()}"></h:commandButton>
+			</div>
+		</h:form>
+
+	</div>
+
 </h:body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

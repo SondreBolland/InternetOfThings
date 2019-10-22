@@ -27,10 +27,10 @@ public class IoTUser implements Serializable {
 
 	private String password;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Device> ownDevices;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Register> subscribedDevices;
 	
 	public static final String FIND_ALL = "IoTUser.findAll";

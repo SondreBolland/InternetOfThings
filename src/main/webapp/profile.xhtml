@@ -5,7 +5,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">	</link>	
+	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 	<title>Profile</title>
 </h:head>
 <h:body>
@@ -15,7 +15,56 @@
 		<li><a href="search.xhtml">Search</a></li>
 		<li><a href="profile.xhtml">Profile</a></li>
 	</ul>
-	
-	
+
+	<div class="div-container-devices">
+		<h:form>
+			<h:panelGrid id="panel" columns="2" border="1" cellpadding="10"
+				cellspacing="1"
+				style="border:1px solid black;margin-left:auto;margin-right:auto;font-size:22px;">
+
+				<f:facet name="header">
+					<h:outputText value="Profile" />
+				</f:facet>
+
+				<table>
+					<tr>
+						<td>ID:</td>
+						<td><h:outputText
+								value="#{userController.getUser(sessionController.getUsername()).getId()}" /></td>
+					</tr>
+					<tr>
+						<td>Username:</td>
+						<td><h:outputText
+								value="#{userController.getUser(sessionController.getUsername()).getEmail()}" /></td>
+					</tr>
+					<tr>
+						<td>Username:</td>
+						<td><h:outputText value="#{sessionController.username}" /></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><h:outputText value="#{sessionController.password}" /></td>
+					</tr>
+					<tr>
+						<td>My devices:</td>
+						<td><h:outputText
+								value="#{userController.getUser(sessionController.getUsername()).getOwnDevices().size()}" /></td>
+					</tr>
+					<tr>
+						<td>Subscribed devices:</td>
+						<td><h:outputText
+								value="#{userController.getUser(sessionController.getUsername()).getSubscribedDevices().size()}" /></td>
+					</tr>
+				</table>
+
+			</h:panelGrid>
+			<div class="topright">
+				<h:commandButton value="Log out"
+					action="#{sessionController.logout()}"></h:commandButton>
+			</div>
+		</h:form>
+
+	</div>
+
 </h:body>
 </html>
