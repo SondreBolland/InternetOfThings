@@ -35,16 +35,19 @@
 						<b><h:outputLabel value="| Approved:  " /></b>
 						<h:outputText value="#{dev.approved}" />
 						<b><h:outputLabel value="| Online: " /></b>
-						<h:panelGroup style="display:block; text-align:center">
-							<h:commandButton value="Unsubscribe" action="myDevices.xhtml"></h:commandButton>
-						</h:panelGroup>
+						<h:outputText value="#{dev.getDevice().isOnline()} " />
+						<h:commandButton value="Select" action="subscribed.xhtml"></h:commandButton>
+						<h:outputText value=" " />
+						<h:commandButton value="Unsubscribe" action="myDevices.xhtml"></h:commandButton>
 
 					</div>
 				</ui:repeat>
-				<h:panelGroup style="display:block; text-align:center">
-					<h:commandButton value="Dunno Device" action="myDevices.xhtml"></h:commandButton>
-				</h:panelGroup>
 			</h:panelGrid>
+
+			<div class="topright">
+				<h:commandButton value="Log out"
+					action="#{sessionController.logout()}"></h:commandButton>
+			</div>
 		</h:form>
 
 	</div>

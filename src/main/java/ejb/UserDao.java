@@ -32,7 +32,7 @@ public class UserDao {
 	private EntityManagerFactory emf;
 
 	public UserDao(){
-	    emf = Persistence.createEntityManagerFactory("InternetOfThings");
+		emf = Persistence.createEntityManagerFactory("InternetOfThings");
     }
 	
     // Stores a new user:
@@ -40,6 +40,12 @@ public class UserDao {
 	    em = emf.createEntityManager();
         em.persist(user);
         em.close();
+    }
+    
+    public void merge(IoTUser user) throws NamingException, JMSException {
+    	em = emf.createEntityManager();
+    	em.merge(user);
+    	em.close();
     }
 
     // Retrieves all the users:

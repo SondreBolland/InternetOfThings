@@ -46,7 +46,7 @@ public class RegisterDao {
         em.persist(register);
         em.close();
         
-        
+        //JMS
         context.createProducer().setProperty("topicDevice", register.getTopic()).send(topic, register);
     }
 
