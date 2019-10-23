@@ -28,7 +28,6 @@ public class IoTUser implements Serializable {
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@MapsId("owndevices_id")
 	private List<Device> ownDevices;
 	
 	@OneToMany(cascade = CascadeType.ALL)

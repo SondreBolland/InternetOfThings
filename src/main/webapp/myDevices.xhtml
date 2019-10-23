@@ -37,14 +37,16 @@
 						<b><h:outputLabel value="| Online: " /></b>
 						<h:outputText value="#{dev.online} " />
 						<h:commandButton value="Select" action="myDevices.xhtml"></h:commandButton>
-						<h:commandButton value="Publish/Unpublish" action="#{deviceController.invertPublish()}"></h:commandButton>
-
+						<h:outputText value=" " />
+						<h:commandButton value="Publish/Unpublish"
+							action="#{deviceController.invertPublish()}"></h:commandButton>
+						<h:outputText value=" " />
+						<h:commandButton value="Delete Device"
+							action="#{deviceController.deleteDevice(dev.id, sessionController.username)}"></h:commandButton>
 					</div>
 				</ui:repeat>
 				<h:panelGroup style="display:block; text-align:center">
 					<h:commandButton value="Add Device" action="addDevice.xhtml"></h:commandButton>
-					<br> </br>
-					<h:commandButton value="Delete Device" action="myDevices.xhtml"></h:commandButton>
 				</h:panelGroup>
 			</h:panelGrid>
 

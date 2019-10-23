@@ -36,6 +36,15 @@ public class RegisterDao {
         em.merge(register);
         em.close();
     }
+    
+    public void remove(Register register) throws NamingException, JMSException {
+	    em = emf.createEntityManager();
+    	if (!em.contains(register)) {
+    		register = em.merge(register);
+		}
+		em.remove(register);
+		em.close();
+    }
 
     // Retrieves all the devices:
 	@SuppressWarnings("unchecked")

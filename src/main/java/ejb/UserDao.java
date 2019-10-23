@@ -69,6 +69,7 @@ public class UserDao {
         if(users.size()>0)
             user = users.get(0);
         em.close();
+		System.out.println(user.getSubscribedDevices());
         return user;
     }
 }

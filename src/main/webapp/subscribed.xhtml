@@ -38,7 +38,7 @@
 						<h:outputText value="#{dev.getDevice().isOnline()} " />
 						<h:commandButton value="Select" action="subscribed.xhtml"></h:commandButton>
 						<h:outputText value=" " />
-						<h:commandButton value="Unsubscribe" action="myDevices.xhtml"></h:commandButton>
+						<h:commandButton value="Unsubscribe" action="#{deviceController.unsubscribe(dev.getDevice().getId(), dev.id, sessionController.username)}"></h:commandButton>
 
 					</div>
 				</ui:repeat>

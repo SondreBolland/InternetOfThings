@@ -26,10 +26,10 @@ public class Device implements Serializable {
 	private Boolean published;
 	private Boolean online;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Tag> tags;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Feedback> feedback;
 
 	public static final String FIND_ALL = "Device.findAll";

@@ -72,7 +72,7 @@ public class DeviceRestService {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Register registerForDevice(@PathParam("id") String deviceId, IoTUser user) throws NamingException, JMSException {
 		int idInt = Integer.parseInt(deviceId);
-		Register registration = controller.registerUser(idInt, user.getUser);
+		Register registration = controller.registerUser(idInt, user);
 		if (registration == null)
 			throw new NotFoundException();
 		return registration;
