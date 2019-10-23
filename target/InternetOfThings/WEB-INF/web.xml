@@ -22,8 +22,8 @@
     </session-config>
     <!-- LOGIN -->
     <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>JDBCRealm</realm-name>
+        <auth-method>basic</auth-method>
+        <realm-name>file</realm-name>
         <form-login-config>
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/loginError.xhtml</form-error-page>
