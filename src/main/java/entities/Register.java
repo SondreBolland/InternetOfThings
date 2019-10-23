@@ -20,10 +20,10 @@ public class Register implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
+	@TableGenerator(name = "yourTableGeneratorRegister", allocationSize = 1, initialValue = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGeneratorRegister")
 	private int id;
 	private String time;
 	private boolean approved;

@@ -6,16 +6,13 @@ import entities.Register;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpSession;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class DeviceController implements Serializable {
 	private RegisterDao registerDao;
 	private UserDao userDao;
 
-	private Device device = new Device();
+	private Device device;
 
 	public DeviceController() {
 		deviceDao = new DeviceDao();
@@ -145,22 +142,13 @@ public class DeviceController implements Serializable {
 
 	public String addDevice(String username) {
 		IoTUser user = userDao.getUser(username);
+		device = new Device();
 		device.setName(this.name);
 		device.setOnline(true);
 		device.setPicture(this.picture);
 		device.setPublished(this.published);
 		device.setURL(this.URL);
-		device.setFeedback(new ArrayList<>());
-		device.setTags(new ArrayList<>());
 		user.getOwnDevices().add(device);
-		try {
-			deviceDao.persist(device);
-			userDao.merge(user);
-		} catch (NamingException e) {
-			e.printStackTrace();
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
 		return Constants.MY_DEVICES;
 	}
 	
@@ -178,18 +166,19 @@ public class DeviceController implements Serializable {
 		return Constants.MY_DEVICES;
 	}
 
-	public Register registerUser(int deviceId, IoTUser user) throws JMSException, NamingException {
+	public String registerUser(Integer deviceId, String username) {
+		System.out.println("kake1");
 		Register registration = new Register();
-		Device device = deviceDao.getDevice(deviceId);
+		Device device = deviceDao.getDevice(deviceId.intValue());
+		IoTUser user = userDao.getUser(username);
 		registration.setUser(user);
 		registration.setApproved(false);
 		registration.setDevice(device);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		registration.setTime(formatter.format(date));
-
-		registerDao.persist(registration);
-		return registration;
+		user.getSubscribedDevices().add(registration);
+		return Constants.SUBSCRIBED;
 	}
 
 	public String saveDevice(String name, String url) throws NamingException, JMSException {

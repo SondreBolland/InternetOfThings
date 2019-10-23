@@ -41,7 +41,7 @@
 						<h:outputText value="#{dev.name}" />
 						<b><h:outputLabel value="| Online: " /></b>
 						<h:outputText value="#{dev.online} " />
-						<h:commandButton value="Subscribe" action="myDevices.xhtml"></h:commandButton>
+						<h:commandButton value="Subscribe" action="#{deviceController.registerUser(dev.id, sessionController.username)}"></h:commandButton>
 
 					</div>
 				</ui:repeat>

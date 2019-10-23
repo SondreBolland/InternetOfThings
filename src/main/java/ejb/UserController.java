@@ -103,7 +103,7 @@ public class UserController implements Serializable {
 	}
 
 	private static boolean isStringOnlyAlphabet(String str) {
-		return ((!str.equals("")) && (str != null) && ((str.matches("^[a-zA-Z]*$") || str.matches("[^0-9]"))));
+		return ((!str.equals("")) && (str != null) && ((str.matches("^[a-zA-Z]*$") || !str.matches("[^0-9]"))));
 	}
 
 	public void saveUser() throws NamingException, JMSException, Exception {
