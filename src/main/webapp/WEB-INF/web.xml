@@ -22,8 +22,8 @@
     </session-config>
     <!-- LOGIN -->
     <login-config>
-        <auth-method>basic</auth-method>
-        <realm-name>file</realm-name>
+        <auth-method>FORM</auth-method>
+        <realm-name>JDBCRealm</realm-name>
         <form-login-config>
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/loginError.xhtml</form-error-page>
@@ -58,6 +58,9 @@
             <role-name>ProUser</role-name>
             <role-name>FreeUser</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <!-- SECURITY CONSTRAINT #3 -->
     <security-constraint>
@@ -71,6 +74,9 @@
         <auth-constraint>
             <role-name>FreeUser</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <!-- END SECURITY CONSTRAINTS -->
     
