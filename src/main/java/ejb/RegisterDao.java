@@ -45,6 +45,15 @@ public class RegisterDao {
 		em.remove(register);
 		em.close();
     }
+    
+    public Register getRegister(Register register) {
+    	em = emf.createEntityManager();
+    	if (!em.contains(register)) {
+    		register = em.merge(register);
+		}
+    	em.close();
+    	return register;
+    }
 
     // Retrieves all the devices:
 	@SuppressWarnings("unchecked")

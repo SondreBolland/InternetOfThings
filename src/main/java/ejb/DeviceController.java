@@ -155,6 +155,9 @@ public class DeviceController implements Serializable {
 	public String deleteDevice(Integer deviceId, String username) {
 		Device device = deviceDao.getDevice(deviceId);
 		IoTUser user = userDao.getUser(username);
+		System.out.println("Device: " + deviceId + ", username: " + username);
+		System.out.println(user.getOwnDevices());
+		System.out.println(user.getOwnDevices().remove(device));
 		try {
 			deviceDao.remove(device);
 		} catch (NamingException e) {
@@ -162,7 +165,6 @@ public class DeviceController implements Serializable {
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		user.getOwnDevices().remove(device);
 		return Constants.MY_DEVICES;
 	}
 	
@@ -198,7 +200,10 @@ public class DeviceController implements Serializable {
 	public String unsubscribe(Integer deviceId, Integer registrationId, String username) {
 		Register register = registerDao.getRegistrationForDevice(deviceId, registrationId);
 		IoTUser user = userDao.getUser(username);
-		System.out.println(user.getSubscribedDevices().remove(register));
+		List<Register> sublist = user.getSubscribedDevices();
+		register = registerDao.getRegister(register);
+		System.out.println(register);
+		sublist.remove(register);
 		System.out.println("device: " + deviceId + ", register: " + registrationId);
 		try {
 			registerDao.remove(register);

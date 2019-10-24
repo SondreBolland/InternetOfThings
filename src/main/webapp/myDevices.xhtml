@@ -25,7 +25,7 @@
 					<h:outputText value="My Devices" />
 				</f:facet>
 				<ui:repeat
-					value="#{userController.getUser(sessionController.getUsername()).getOwnDevices()}"
+					value="#{userController.getUser(sessionController.username).getOwnDevices()}"
 					var="dev">
 					<div class="div-container-device">
 						<b><h:outputLabel value="ID: " /></b>
