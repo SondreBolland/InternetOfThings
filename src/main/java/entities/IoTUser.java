@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 @Entity
 @XmlRootElement
 @Table(name = "IoTUser")
@@ -28,9 +30,11 @@ public class IoTUser implements Serializable {
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@CascadeOnDelete
 	private List<Device> ownDevices;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@CascadeOnDelete
 	private List<Register> subscribedDevices;
 	
 	public static final String FIND_ALL = "IoTUser.findAll";

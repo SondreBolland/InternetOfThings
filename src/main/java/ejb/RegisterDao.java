@@ -94,5 +94,12 @@ public class RegisterDao {
         em.close();
         return null;
     }
+    
+    public void deleteRegister(int registerId) {
+		em = emf.createEntityManager();
+		Query query = em.createNativeQuery("DELETE FROM IOTUSER_REGISTER WHERE subscribeddevices_id = " + registerId);
+		
+		System.out.println(query.executeUpdate());
+	}
 
 }

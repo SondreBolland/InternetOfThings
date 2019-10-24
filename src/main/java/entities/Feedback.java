@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Feedback {
 
 	// Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
+	@TableGenerator(name = "yourTableGeneratorFeedback", allocationSize = 1, initialValue = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGeneratorFeedback")
 	private int id;
 	
 	private IoTUser user;

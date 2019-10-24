@@ -56,7 +56,7 @@ public class DeviceDao implements java.io.Serializable {
 
 	// Retrieves all the devices:
 	@SuppressWarnings("unchecked")
-	public List<Device> getPublishedDevices() {
+	public List<Device> getPublishedDevices(int userId) {
 		em = emf.createEntityManager();
 		Query query = em.createQuery("SELECT d FROM Device d where d.published = 'true'");
 		List<Device> devices = query.getResultList();
@@ -85,4 +85,11 @@ public class DeviceDao implements java.io.Serializable {
 		em.close();
 		return null;
 	}
+
+	 public void deleteDevice(int deviceId) {
+			em = emf.createEntityManager();
+			Query query = em.createNativeQuery("DELETE FROM IOTUSER_DEVICE WHERE owndevices_id = " + deviceId);
+			
+			System.out.println(query.executeUpdate());
+		}
 }

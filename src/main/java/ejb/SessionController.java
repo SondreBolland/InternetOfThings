@@ -59,7 +59,7 @@ public class SessionController implements Serializable {
 		if(user == null) {
 			return Constants.LOGIN_ERROR;
 		}
-		if(!user.getPassword().equals(this.password)) {//clear text password are the best, we can sell them if we go bankrupt
+		if(!user.getPassword().equals(this.password.hashCode()+"")) {//clear text password are the best, we can sell them if we go bankrupt
 			return Constants.LOGIN_ERROR;
 		}
 		return Constants.MY_DEVICES;

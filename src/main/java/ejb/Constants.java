@@ -12,4 +12,7 @@ public class Constants {
 	public static final String SIGNUP_ERROR = "signupError";
 	public static final String SUBSCRIBED = "subscribed";
 	public static final String MY_DEVICES = "myDevices";
+	public static final String FEEDBACK = "feedback";
+	public static final String READ_FEEDBACK = "readFeedback";
+
 }

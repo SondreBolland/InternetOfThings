@@ -1,15 +1,19 @@
 package ejb;
 
 import entities.Device;
+import entities.Feedback;
 import entities.IoTUser;
 import entities.Register;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +41,16 @@ public class DeviceController implements Serializable {
 	private UserDao userDao;
 
 	private Device device;
+	private IoTUser user;
+	private String feedback;
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
 
 	public DeviceController() {
 		deviceDao = new DeviceDao();
@@ -105,14 +119,15 @@ public class DeviceController implements Serializable {
 		return searchDevice();
 	}
 	
-	public List<Device> getPublishedDevices() {
+	public List<Device> getPublishedDevices(String username) {
+		IoTUser user = userDao.getUser(username);
 		List<Device> deviceList = new ArrayList<Device>();
 		if (searchKey == null) {
-			deviceList.addAll(this.deviceDao.getPublishedDevices());
+			deviceList.addAll(this.deviceDao.getPublishedDevices(user.getId()));
 			return deviceList;
 		}
 		if (searchKey.equals("")) {
-			deviceList.addAll(this.deviceDao.getPublishedDevices());
+			deviceList.addAll(this.deviceDao.getPublishedDevices(user.getId()));
 			return deviceList;
 		}
 		return searchDevice();
@@ -155,11 +170,11 @@ public class DeviceController implements Serializable {
 	public String deleteDevice(Integer deviceId, String username) {
 		Device device = deviceDao.getDevice(deviceId);
 		IoTUser user = userDao.getUser(username);
-		System.out.println("Device: " + deviceId + ", username: " + username);
-		System.out.println(user.getOwnDevices());
 		System.out.println(user.getOwnDevices().remove(device));
 		try {
 			deviceDao.remove(device);
+			deviceDao.deleteDevice(deviceId);
+			userDao.merge(user);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		} catch (JMSException e) {
@@ -168,9 +183,8 @@ public class DeviceController implements Serializable {
 		return Constants.MY_DEVICES;
 	}
 	
-	public String invertPublish() {
-		int id = device.getId();
-		Device device = deviceDao.getDevice(id);
+	public String invertPublish(Integer deviceId) {
+		Device device = deviceDao.getDevice(deviceId);
 		device.setPublished(!device.isPublished());
 		try {
 			deviceDao.merge(device);
@@ -183,8 +197,8 @@ public class DeviceController implements Serializable {
 	}
 
 	public String registerUser(Integer deviceId, String username) {
-		System.out.println("kake1");
 		Register registration = new Register();
+		System.out.println("Device id: " + deviceId);
 		Device device = deviceDao.getDevice(deviceId.intValue());
 		IoTUser user = userDao.getUser(username);
 		registration.setUser(user);
@@ -199,20 +213,23 @@ public class DeviceController implements Serializable {
 	
 	public String unsubscribe(Integer deviceId, Integer registrationId, String username) {
 		Register register = registerDao.getRegistrationForDevice(deviceId, registrationId);
-		IoTUser user = userDao.getUser(username);
-		List<Register> sublist = user.getSubscribedDevices();
 		register = registerDao.getRegister(register);
-		System.out.println(register);
-		sublist.remove(register);
-		System.out.println("device: " + deviceId + ", register: " + registrationId);
+		IoTUser user = userDao.getUser(username);
+		this.device = deviceDao.getDevice(deviceId);
+		this.user = user;
 		try {
 			registerDao.remove(register);
+			registerDao.deleteRegister(registrationId.intValue());
+			userDao.merge(user);
+			deviceDao.merge(device);
 		} catch (NamingException e) {
 			e.printStackTrace();
+			return Constants.SUBSCRIBED;
 		} catch (JMSException e) {
 			e.printStackTrace();
+			return Constants.SUBSCRIBED;
 		}
-		return Constants.SUBSCRIBED;
+		return Constants.FEEDBACK;
 	}
 
 	public String saveDevice(String name, String url) throws NamingException, JMSException {
@@ -229,6 +246,45 @@ public class DeviceController implements Serializable {
 
 	public List<Register> getAllRegistrations() {
 		return registerDao.getAllRegistrations();
+	}
+	
+	public void goExternal(Integer deviceId) {
+		Device device = deviceDao.getDevice(deviceId);
+		String URL = device.getURL();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			externalContext.redirect(URL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String addFeedback(String username) {
+		Feedback f = new Feedback();
+		f.setFeedback(feedback);
+		IoTUser user = userDao.getUser(username);
+		f.setUser(user);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		f.setTime(formatter.format(date));
+		device.getFeedback().add(f);
+		try {
+			deviceDao.merge(device);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Constants.SUBSCRIBED;
+		}
+		System.out.println(feedback);
+		return Constants.MY_DEVICES;
+	}
+	
+	public String readFeedback(int deviceId) {
+		device = deviceDao.getDevice(deviceId);
+		return Constants.READ_FEEDBACK;	
+	}
+	
+	public List<Feedback> getDeviceFeedback() {
+		return device.getFeedback();
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.resource.spi.SecurityException;
 import javax.servlet.http.HttpSession;
 
+import entities.Device;
 import entities.IoTUser;
 
 @Named(value = "userController")
@@ -85,6 +86,7 @@ public class UserController implements Serializable {
 		if (user.getPassword().length() < 8) {
 			return Constants.SIGNUP_ERROR;
 		}
+		user.setPassword(password.hashCode()+"");
 		try {
 			saveUser();
 		} catch (NamingException e) {

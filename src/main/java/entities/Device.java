@@ -2,6 +2,9 @@ package entities;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,9 +30,11 @@ public class Device implements Serializable {
 	private Boolean online;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@CascadeOnDelete
 	private List<Tag> tags;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@CascadeOnDelete
 	private List<Feedback> feedback;
 
 	public static final String FIND_ALL = "Device.findAll";

@@ -60,7 +60,7 @@ public class DeviceRestService {
 	public Register getRegistrationsForDevice(@PathParam("id") String id, @PathParam("rid") String rid) {
 		int idInt = Integer.parseInt(id);
 		int ridInt = Integer.parseInt(rid);
-		Register registration = controller.getRegistration(idInt, ridInt);
+		Register registration = new Register();// controller.getRegistration(idInt, ridInt);
 		if (registration == null)
 			throw new NotFoundException();
 		return registration;
@@ -72,7 +72,7 @@ public class DeviceRestService {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Register registerForDevice(@PathParam("id") String deviceId, IoTUser user) throws NamingException, JMSException {
 		int idInt = Integer.parseInt(deviceId);
-		Register registration = controller.registerUser(idInt, user);
+		Register registration = new Register(); //controller.registerUser(idInt, user);
 		if (registration == null)
 			throw new NotFoundException();
 		return registration;

@@ -15,7 +15,10 @@ import javax.naming.NamingException;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
+import entities.Device;
 import entities.IoTUser;
+import entities.Register;
+import entities.UserDevice;
 
 /**
  * 
@@ -48,6 +51,15 @@ public class UserDao {
     	em.merge(user);
     	em.close();
     }
+    
+    public void remove(IoTUser user) throws NamingException, JMSException {
+	    em = emf.createEntityManager();
+    	if (!em.contains(user)) {
+    		user = em.merge(user);
+		}
+		em.remove(user);
+		em.close();
+    }
 
     // Retrieves all the users:
 	@SuppressWarnings("unchecked")
@@ -69,7 +81,7 @@ public class UserDao {
         if(users.size()>0)
             user = users.get(0);
         em.close();
-		System.out.println(user.getSubscribedDevices());
         return user;
     }
+	
 }

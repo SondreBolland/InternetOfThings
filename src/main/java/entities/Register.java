@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 @Entity
 @XmlRootElement
 @Table(name = "Register")
@@ -27,7 +29,11 @@ public class Register implements Serializable {
 	private int id;
 	private String time;
 	private boolean approved;
+	
+	@CascadeOnDelete
 	private IoTUser user;
+	
+	@CascadeOnDelete
 	private Device device;
 
 	public Register() {

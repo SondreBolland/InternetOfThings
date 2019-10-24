@@ -39,7 +39,7 @@
 						<h:commandButton value="Select" action="subscribed.xhtml"></h:commandButton>
 						<h:outputText value=" " />
 						<h:commandButton value="Unsubscribe" action="#{deviceController.unsubscribe(dev.getDevice().getId(), dev.id, sessionController.username)}"></h:commandButton>
-
+						<h:commandButton value="Read Feedback" action="#{deviceController.readFeedback(dev.id)}"></h:commandButton>
 					</div>
 				</ui:repeat>
 			</h:panelGrid>

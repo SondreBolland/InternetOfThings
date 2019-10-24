@@ -25,7 +25,7 @@
 					<h:outputText value="My Devices" />
 				</f:facet>
 				<ui:repeat
-					value="#{userController.getUser(sessionController.username).getOwnDevices()}"
+					value="#{userController.getUser(sessionController.getUsername()).getOwnDevices()}"
 					var="dev">
 					<div class="div-container-device">
 						<b><h:outputLabel value="ID: " /></b>
@@ -36,13 +36,16 @@
 						<h:outputText value="#{dev.published}" />
 						<b><h:outputLabel value="| Online: " /></b>
 						<h:outputText value="#{dev.online} " />
-						<h:commandButton value="Select" action="myDevices.xhtml"></h:commandButton>
+						<h:commandButton value="Select"
+							action="#{deviceController.goExternal(dev.id)}"></h:commandButton>
 						<h:outputText value=" " />
 						<h:commandButton value="Publish/Unpublish"
-							action="#{deviceController.invertPublish()}"></h:commandButton>
+							action="#{deviceController.invertPublish(dev.id)}"></h:commandButton>
 						<h:outputText value=" " />
 						<h:commandButton value="Delete Device"
 							action="#{deviceController.deleteDevice(dev.id, sessionController.username)}"></h:commandButton>
+						<h:commandButton value="Read Feedback"
+							action="#{deviceController.readFeedback(dev.id)}"></h:commandButton>
 					</div>
 				</ui:repeat>
 				<h:panelGroup style="display:block; text-align:center">
