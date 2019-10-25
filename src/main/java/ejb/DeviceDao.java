@@ -42,6 +42,7 @@ public class DeviceDao implements java.io.Serializable {
 		    device = em.merge(device);
 		}
 		em.remove(device);
+		em.flush();
 		em.close();
 	}
 
