@@ -10,6 +10,7 @@ C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entiti
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\SessionUtils.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Feedback.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\jms\DweetListener.java
+C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\jms\SubscriptionIsApprovedListner.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\rest\UserRestService.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\ejb\RegisterDao.java
 C:\Users\Sondre Bolland\workspace - DAT250\InternetOfThings\src\main\java\entities\Register.java

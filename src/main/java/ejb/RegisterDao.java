@@ -10,6 +10,7 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSSessionMode;
+import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.NamingException;
 import javax.persistence.*;
@@ -43,7 +44,12 @@ public class RegisterDao {
         em.persist(register);
         em.close();
         
-        context.createProducer().setProperty("topicDevice", register.getTopic()).send(topic, register);
+    }
+    
+    public void sendMessage(Register register) {
+    	//topic = Session.createConsumer(topic);
+
+    	context.createProducer().setProperty("topicDevice", register.getTopic()).send(topic, register);
     }
 
     // Updates a new registration:

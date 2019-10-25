@@ -198,7 +198,6 @@ public class DeviceController implements Serializable {
 
 	public String registerUser(Integer deviceId, String username) {
 		Register registration = new Register();
-		System.out.println("Device id: " + deviceId);
 		Device device = deviceDao.getDevice(deviceId.intValue());
 		IoTUser user = userDao.getUser(username);
 		registration.setUser(user);
@@ -208,6 +207,7 @@ public class DeviceController implements Serializable {
 		Date date = new Date(System.currentTimeMillis());
 		registration.setTime(formatter.format(date));
 		user.getSubscribedDevices().add(registration);
+		registerDao.sendMessage(registration);
 		return Constants.SUBSCRIBED;
 	}
 	
