@@ -95,11 +95,15 @@ public class UserController implements Serializable {
 			return Constants.SIGNUP_ERROR;
 		}
 		
-		return Constants.MY_DEVICES;
+		return Constants.LOGIN;
+	}
+
+	public void setUser(IoTUser user) {
+		this.user = user;
 	}
 
 	private static boolean isStringOnlyAlphabet(String str) {
-		return ((!str.equals("")) && (str != null) && ((str.matches("^[a-zA-Z]*$") || str.matches("[^0-9]"))));
+		return ((!str.equals("")) && (str != null) && ((str.matches("^[a-zA-Z]*$") || !str.matches("[^0-9]"))));
 	}
 
 	public void saveUser() throws NamingException, JMSException, Exception {

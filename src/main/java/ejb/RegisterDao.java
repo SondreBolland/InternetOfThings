@@ -1,3 +1,4 @@
+
 package ejb;
 
 import entities.Device;

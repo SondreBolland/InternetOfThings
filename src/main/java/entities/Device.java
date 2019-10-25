@@ -1,3 +1,4 @@
+
 package entities;
 
 import javax.persistence.*;
@@ -14,10 +15,10 @@ public class Device implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
+	@TableGenerator(name = "yourTableGeneratorDevice", allocationSize = 1, initialValue = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "yourTableGeneratorDevice")
 	private int id;
 
 	private String name;
@@ -25,10 +26,11 @@ public class Device implements Serializable {
 	private String URL;
 	private Boolean published;
 	private Boolean online;
-	private String topic;
 	
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Tag> tags;
 	
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Feedback> feedback;
 
 	public static final String FIND_ALL = "Device.findAll";
@@ -100,12 +102,6 @@ public class Device implements Serializable {
 	public void setFeedback(List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
-	public String getTopic() {
-		return topic;
-	}
-
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-
+	
 }
+

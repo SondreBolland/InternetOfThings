@@ -1,3 +1,4 @@
+
 package ejb;
 
 import entities.Device;
@@ -32,6 +33,15 @@ public class DeviceDao implements java.io.Serializable {
 	public void merge(Device device) throws NamingException, JMSException {
 		em = emf.createEntityManager();
 		em.merge(device);
+		em.close();
+	}
+	
+	public void remove(Device device) throws NamingException, JMSException {
+		em = emf.createEntityManager();
+		if (!em.contains(device)) {
+		    device = em.merge(device);
+		}
+		em.remove(device);
 		em.close();
 	}
 
@@ -76,4 +86,5 @@ public class DeviceDao implements java.io.Serializable {
 		em.close();
 		return null;
 	}
+>>>>>>> develop
 }

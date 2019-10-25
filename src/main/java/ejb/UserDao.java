@@ -13,6 +13,7 @@ import javax.jms.JMSSessionMode;
 import javax.jms.Topic;
 import javax.naming.NamingException;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 import entities.IoTUser;
 
@@ -38,7 +39,7 @@ public class UserDao {
     // Stores a new user:
     public void persist(IoTUser user) throws NamingException, JMSException {
 	    em = emf.createEntityManager();
-        em.persist(user);
+        em.persist((IoTUser) user);
         em.close();
     }
     
@@ -68,6 +69,7 @@ public class UserDao {
         if(users.size()>0)
             user = users.get(0);
         em.close();
+		System.out.println(user.getSubscribedDevices());
         return user;
     }
 }
