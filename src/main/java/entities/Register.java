@@ -29,6 +29,8 @@ public class Register implements Serializable {
 	private int id;
 	private String time;
 	private boolean approved;
+	private String topic;
+
 	
 	@CascadeOnDelete
 	private IoTUser user;
@@ -79,6 +81,14 @@ public class Register implements Serializable {
 		this.device = device;
 	}
 	
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
 	
 
 }
+

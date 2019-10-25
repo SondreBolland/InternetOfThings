@@ -1,3 +1,4 @@
+
 package ejb;
 
 import entities.Device;
@@ -92,4 +93,5 @@ public class DeviceDao implements java.io.Serializable {
 			
 			System.out.println(query.executeUpdate());
 		}
+
 }

@@ -1,3 +1,4 @@
+
 package entities;
 
 import javax.persistence.*;
@@ -108,3 +109,4 @@ public class Device implements Serializable {
 	}
 	
 }
+

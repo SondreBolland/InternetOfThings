@@ -4,7 +4,6 @@ import ejb.DeviceController;
 import entities.Device;
 import entities.IoTUser;
 import entities.Register;
-import entities.Users;
 
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
