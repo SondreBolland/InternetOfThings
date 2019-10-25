@@ -25,8 +25,6 @@ public class DweetConnection {
 
 	
 	public DweetConnection() {
-		
-		
 	}
 	
 	public boolean publish(JsonElement content) throws IOException {

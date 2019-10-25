@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import entities.Device;
 import entities.IoTUser;
+import entities.Register;
 
 @Named(value = "userController")
 @RequestScoped
@@ -124,6 +125,19 @@ public class UserController implements Serializable {
 	public IoTUser getUser(String username) {
 		IoTUser user = userDao.getUser(username);
 		return user;
+	}
+	
+	public List<Register> getSubscribedDevices(String username) {
+		IoTUser user = userDao.getUser(username);
+		List<Register> subList = user.getSubscribedDevices();
+		/*List<Register> approvedList = new ArrayList<>();
+		for (int i = 0; i < subList.size(); i++) {
+			Register register = subList.get(i);
+			if (register.isApproved()) {
+				approvedList.add(register);
+			}
+		}*/
+		return subList;
 	}
 
 }

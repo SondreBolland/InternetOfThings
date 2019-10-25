@@ -14,5 +14,5 @@ public class Constants {
 	public static final String MY_DEVICES = "myDevices";
 	public static final String FEEDBACK = "feedback";
 	public static final String READ_FEEDBACK = "readFeedback";
-
+	public static final String REQUESTS = "requests";
 }

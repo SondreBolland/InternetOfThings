@@ -12,6 +12,7 @@
 	<ul>
 		<li><a href="myDevices.xhtml">My Devices</a></li>
 		<li><a href="subscribed.xhtml">Subscribed Devices</a></li>
+		<li><a href="requests.xhtml">Requests</a></li>
 		<li><a href="search.xhtml">Search</a></li>
 		<li><a href="profile.xhtml">Profile</a></li>
 	</ul>
@@ -33,7 +34,8 @@
 				<f:facet name="header">
 					<h:outputText value="Available Devices" />
 				</f:facet>
-				<ui:repeat value="#{deviceController.getPublishedDevices(sessionController.username)}"
+				<ui:repeat
+					value="#{deviceController.getPublishedDevices(sessionController.username)}"
 					var="dev">
 					<div class="div-container-device">
 						<b><h:outputLabel value="ID: " /></b>

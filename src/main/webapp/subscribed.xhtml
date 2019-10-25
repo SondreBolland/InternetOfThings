@@ -12,6 +12,7 @@
 	<ul>
 		<li><a href="myDevices.xhtml">My Devices</a></li>
 		<li><a href="subscribed.xhtml">Subscribed Devices</a></li>
+		<li><a href="requests.xhtml">Requests</a></li>
 		<li><a href="search.xhtml">Search</a></li>
 		<li><a href="profile.xhtml">Profile</a></li>
 	</ul>
@@ -25,7 +26,7 @@
 					<h:outputText value="Subscribed Devices" />
 				</f:facet>
 				<ui:repeat
-					value="#{userController.getUser(sessionController.getUsername()).getSubscribedDevices()}"
+					value="#{userController.getSubscribedDevices(sessionController.username)}"
 					var="dev">
 					<div class="div-container-device">
 						<b><h:outputLabel value="ID: " /></b>
@@ -36,10 +37,13 @@
 						<h:outputText value="#{dev.approved}" />
 						<b><h:outputLabel value="| Online: " /></b>
 						<h:outputText value="#{dev.getDevice().isOnline()} " />
-						<h:commandButton value="Select" action="subscribed.xhtml"></h:commandButton>
+						<h:commandButton value="Select"
+							action="#{deviceController.goExternalSubscriber(dev.getDevice().getId(), dev.approved)}"></h:commandButton>
 						<h:outputText value=" " />
-						<h:commandButton value="Unsubscribe" action="#{deviceController.unsubscribe(dev.getDevice().getId(), dev.id, sessionController.username)}"></h:commandButton>
-						<h:commandButton value="Read Feedback" action="#{deviceController.readFeedback(dev.id)}"></h:commandButton>
+						<h:commandButton value="Unsubscribe"
+							action="#{deviceController.unsubscribe(dev.getDevice().getId(), dev.id, sessionController.username)}"></h:commandButton>
+						<h:commandButton value="Read Feedback"
+							action="#{deviceController.readFeedback(dev.id)}"></h:commandButton>
 					</div>
 				</ui:repeat>
 			</h:panelGrid>

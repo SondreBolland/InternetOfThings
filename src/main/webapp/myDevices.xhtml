@@ -12,6 +12,7 @@
 	<ul>
 		<li><a href="myDevices.xhtml">My Devices</a></li>
 		<li><a href="subscribed.xhtml">Subscribed Devices</a></li>
+		<li><a href="requests.xhtml">Requests</a></li>
 		<li><a href="search.xhtml">Search</a></li>
 		<li><a href="profile.xhtml">Profile</a></li>
 	</ul>
@@ -28,6 +29,7 @@
 					value="#{userController.getUser(sessionController.getUsername()).getOwnDevices()}"
 					var="dev">
 					<div class="div-container-device">
+						<h:graphicImage value="#{dev.picture}" width="55" />
 						<b><h:outputLabel value="ID: " /></b>
 						<h:outputText value="#{dev.id}" />
 						<b><h:outputLabel value="| Name: " /></b>
@@ -39,7 +41,7 @@
 						<h:commandButton value="Select"
 							action="#{deviceController.goExternal(dev.id)}"></h:commandButton>
 						<h:outputText value=" " />
-						<h:commandButton value="Publish/Unpublish"
+						<h:commandButton value="Publish"
 							action="#{deviceController.invertPublish(dev.id)}"></h:commandButton>
 						<h:outputText value=" " />
 						<h:commandButton value="Delete Device"

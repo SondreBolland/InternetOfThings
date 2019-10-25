@@ -203,11 +203,11 @@ public class DeviceController implements Serializable {
 		registration.setUser(user);
 		registration.setApproved(false);
 		registration.setDevice(device);
+		registration.setTopic("dweet");
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		registration.setTime(formatter.format(date));
 		user.getSubscribedDevices().add(registration);
-		registerDao.sendMessage(registration);
 		return Constants.SUBSCRIBED;
 	}
 	
@@ -259,6 +259,21 @@ public class DeviceController implements Serializable {
 		}
 	}
 	
+	public String goExternalSubscriber(Integer deviceId, Boolean approved) {
+		if (!approved) {
+			return Constants.SUBSCRIBED;
+		}
+		Device device = deviceDao.getDevice(deviceId);
+		String URL = device.getURL();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			externalContext.redirect(URL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	public String addFeedback(String username) {
 		Feedback f = new Feedback();
 		f.setFeedback(feedback);
@@ -285,6 +300,25 @@ public class DeviceController implements Serializable {
 	
 	public List<Feedback> getDeviceFeedback() {
 		return device.getFeedback();
+	}
+	
+	public List<Register> getRequests(String username) {
+		IoTUser user = userDao.getUser(username);
+		return registerDao.getRequests(user.getId());
+	}
+	
+	public String invertApproved(Register register) {
+		register.setApproved(!register.isApproved());
+		try {
+			registerDao.merge(register);
+			if (register.isApproved())
+				registerDao.sendMessage(register);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		return Constants.REQUESTS;
 	}
 
 }
